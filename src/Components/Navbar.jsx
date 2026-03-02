@@ -10,7 +10,7 @@ import {
   Avatar,
 } from "@heroui/react";
 
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { tokenContext } from "../Context/TokenContext.jsx";
 
