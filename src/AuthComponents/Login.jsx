@@ -6,7 +6,7 @@ import { loginSchema } from "../schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { sendLoginData } from "../services/loginService.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { tokenContext } from "../Context/TokenContext.jsx";
 
 export default function Login() {
@@ -84,6 +84,12 @@ export default function Login() {
               Log In
             </Button>
           </form>
+          <p className="text-center mt-4 text-gray-600">
+            Don't have an account?{" "}
+            <Link to="/auth/signup" className="text-purple-700 font-semibold hover:underline">
+              Register now
+            </Link>
+          </p>
         </div>
       </section>{" "}
     </>
