@@ -9,28 +9,24 @@ export default function TokenContextProvider({ children }) {
   let [ userToken, setToken ] = useState(() => {
     return localStorage.getItem("token");
   });
-  let [ userData, setData ] = useState(null)
+  let [ userData, setData ] = useState(null);
 
   useEffect(() => {
-    const decoded = jwtDecode(userToken);
-    console.log('decoded', decoded)
-    if (localStorage.getItem('token') !== null) {
+    if (!userToken) return;
+    try {
+      const decoded = jwtDecode(userToken);
+      console.log('decoded', decoded);
       axios.get(`${BaseUrl}/users/profile-data`, {
         headers: {
           'Authorization': `Bearer ${userToken}`
         }
       }).then((response) => {
-        setData(response.data.data.user)
-      })
+        setData(response.data.data.user);
+      });
+    } catch (err) {
+      console.error('Token decode error:', err);
     }
-  }, [])
-
-  // useEffect(() => {
-  //   let token = localStorage.getItem("token");
-  //   if (localStorage.getItem("token") ) {
-  //     setToken(token);
-  //   }
-  // }, []);
+  }, [ userToken ]);
 
   return <tokenContext.Provider value={{ userToken, setToken, userData, setData }}>{children}</tokenContext.Provider>;
 }
